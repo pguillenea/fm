@@ -1,0 +1,36 @@
+<!doctype html>
+
+<html ng-app="pabApp">
+<head>
+	<!-- META -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+	
+	<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.indigo-pink.min.css">
+	<script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+  <script src="js/core.js"></script>
+
+	<title></title>
+</head>
+<body data-ng-controller="pabController as pabCrtl">
+  <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+    <thead>
+      <tr>
+        <th class="mdl-data-table__cell--non-numeric">Nombres</th>
+        <th>Apellidos</th>
+        <th>Departamento</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="compa in pabCrtl.pp">
+        <td class="mdl-data-table__cell--non-numeric">{{::compa.nombres}}</td>
+        <td class="mdl-data-table__cell--non-numeric">{{::compa.apellidos}}</td>
+        <td class="mdl-data-table__cell--non-numeric">{{::compa.departamento}}</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

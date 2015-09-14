@@ -1,0 +1,72 @@
+<!doctype html>
+
+<html ng-app="employeesApp">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="viewport" content="initial-scale=1" />
+    <link href="images/favicon.ico" rel="Shortcut Icon">
+    <link rel="stylesheet" href="js/angular-material/angular-material.min.css">
+    <link rel="stylesheet" href="css/facematch.css">
+    <!-- Angular Material Dependencies -->
+    <script src="js/angular/angular.min.js"></script>
+    <script src="js/angular-animate/angular-animate.min.js"></script>
+    <script src="js/angular-aria/angular-aria.min.js"></script>
+
+    <script src="js/angular-material/angular-material.min.js"></script>
+    <script src="js/amd.js"></script>
+    <script type='text/javascript'>
+      function setDefaultImage(image){
+        image.src = 'images/NuestrasFotos/No_image_available.png'; // formal
+      }
+    </script>
+  </head>
+  <body layout="column" >
+      <a name="top"></a>
+      <md-toolbar layout="row">
+        <div class="md-toolbar-tools">
+          <h1 class="md-display-4">Listado de Funcionarios</h1>
+        </div>
+      </md-toolbar>
+      <div layout="row" flex>
+          <div ng-controller="employeeController as empCtrl">
+            <div ng-controller="sectionController as sectionCtrl">
+            <md-content>
+              <md-input-container flex>
+                <label>Buscar</label>
+                <input ng-model="sectionCtrl.employee.nombres" autofocus class='fm_input'>
+              </md-input-container>  
+            </md-content>
+                    
+              <md-content style="height: 650px">
+                <div ng-repeat="section in sectionCtrl.sections | filter:empCtrl.employee.name">
+                  <section>
+                    <md-subheader class="md-primary">{{section.nombredepartamento}}</md-subheader>
+                    <md-list layout-padding>
+                      <md-divider></md-divider>
+                      {{sectionCtrl.getEmployeesBySection(section.iddepartamento)}}
+                      <md-list-item class="md-5-line" ng-repeat="emp in sectionCtrl.sectionEmpl | filter : sectionCtrl.employee.nombres">
+                          {{empCtrl.getPath(emp.id)}}
+                          <div class='path'>
+                            <img ng-src="{{empCtrl.employee.path}}" class='fm_img' onerror="setDefaultImage(this)"/>
+                          </div>
+                          <div class="md-list-item-text">
+                            <h3>{{::emp.nombres }}<br>
+                            {{ ::emp.apellidos }}</h3>
+                            {{emp.interno ? 'Int: ' + emp.interno : ''}}<br>
+                            <a ng-href="mailto://{{ emp.email ? emp.email : '' }}">
+                              {{ emp.email ? emp.email : '' }}<br>
+                            </a>
+                            {{ ::emp.departamento}}</p>
+                          </div>
+                          <md-divider></md-divider>
+                        </md-list-item>
+                    </md-list>
+                  </section>
+                </div>
+              </md-content>
+            </div>        
+          </div>
+      </div>
+  </body>
+</html>

@@ -1,0 +1,81 @@
+<!doctype html>
+
+<html lang="en" ng-app="employeesApp">
+  <head>
+    <link href="images/favicon.ico" rel="Shortcut Icon">
+    <link rel="stylesheet" href="js/angular-material/angular-material.min.css">
+    <link rel="stylesheet" href="css/facematch.css">
+    <!--
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+      -->
+    <!-- Angular Material Dependencies -->
+    <script src="js/angular/angular.min.js"></script>
+    <script src="js/angular-animate/angular-animate.min.js"></script>
+    <script src="js/angular-aria/angular-aria.min.js"></script>
+
+    <script src="js/angular-material/angular-material.min.js"></script>
+    <script src="js/amd-crud.js"></script>
+    <script type='text/javascript'>
+      function setDefaultImage(image){
+        image.src = 'images/NuestrasFotos/No_image_available.jpg'; // informal
+        //image.src = 'images/NuestrasFotos/No_image_available.png'; // formal
+      }
+    </script>
+    <meta name="viewport" content="initial-scale=1" />
+  </head>
+  <body layout="column">
+    
+      <md-toolbar layout="row">
+        <div class="md-toolbar-tools">
+          <h1 class="md-display-4">Listado de funcionarios</h1>
+        </div>
+      </md-toolbar>
+      <div layout="row" flex>
+          <div ng-controller="employeeController as empCtrl">
+            <md-content>
+              <md-input-container flex>
+                <label>Buscar</label>
+                <input ng-model="empCtrl.employee.name" autofocus>
+              </md-input-container>  
+            </md-content>
+              <md-content>
+                <md-list>
+                  <md-divider></md-divider>
+                  <md-list-item ng-repeat="emp in empCtrl.employees | filter : empCtrl.employee.name ">
+                    <div ng-style="width:270px; text-align:left">
+                      {{empCtrl.getPath(emp.id)}}
+                      <img ng-src="{{empCtrl.employee.path}}" ng-style="margin-top:10px;margin-bottom:10px;margin-right:16px;box-sizing:content-box" onerror="setDefaultImage(this)"/>
+                    </div>
+                    <div ng-style="width:400px; text-align:left">
+                      <md-content layout-sm="column">
+                        <div>
+                            <md-input-container>
+                              <h3>{{emp.id + ' ' +  emp.nombres }}<br>
+                              {{ emp.apellidos }}</h3>
+                              {{ emp.departamento}}<br>
+                              <label>Interno</label>
+                              <input ng-model="emp.interno" required>
+                            </md-input-container>
+                            
+                            
+                            <md-input-container>
+                              <label>EMail</label>
+                              <input ng-model="emp.email" type="email" ng-blur="empCtrl.editar(emp)">
+                            </md-input-container>
+                            
+                            
+                            <md-input-container>
+                              <md-button ng-click="empCtrl.editar(emp)">Editar</md-button>
+                            </md-input-container>
+                        </div>                  
+                        <md-divider></md-divider>
+                      </md-content>
+                    </div>
+                  </md-list-item>
+                </md-list>
+              </md-content>
+          </div>      
+      </div>
+  </body>
+</html>
